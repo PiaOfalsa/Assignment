@@ -18,7 +18,7 @@ class Diagnosis{
     textSize(40);
     text("D I A G N O S I S",65,60);
     stroke(172,247,249);
-    strokeWeight(9);
+    strokeWeight(7);
  
     point(x++,y);
     
