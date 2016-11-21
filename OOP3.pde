@@ -53,6 +53,7 @@ void draw(){
   
   pieChart(220, angles);
   grids.displayGrid();
+  heart();
    
 }
 
@@ -121,3 +122,19 @@ void pieChart(float diameter, int[] data) {
     arc(1720, 650, diameter, diameter, lastAngle, lastAngle+radians(angles[i]));
     lastAngle += radians(angles[i]);}
   }
+  
+void heart(){
+  smooth();
+noStroke();
+for(int i=0; i<3;i++){
+fill(random(255),0,0);
+}
+ translate(180,290);
+beginShape();
+vertex(50, 15); 
+bezierVertex(50, -5, 90, 5, 50, 40); 
+vertex(50, 15); 
+bezierVertex(50, -5, 10, 5, 50, 40); 
+endShape();
+
+}
