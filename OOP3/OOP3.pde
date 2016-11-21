@@ -8,6 +8,9 @@
 Diagnosis dia;
 Grid grids;
 PImage backg;
+PImage bod;
+PImage brain;
+PImage brain2;
 int[] angles = { 5, 10, 45, 35, 60, 38, 75, 88 };
 
 //circle var
@@ -21,7 +24,10 @@ void setup(){
   size(1920,800);
   
   backg = loadImage("HIRO.jpg");
-  image(backg,0,0);
+  bod = loadImage("bod.png");
+  brain = loadImage("brain.png");
+  brain2 = loadImage("brain.png");
+ 
   
   dia = new Diagnosis();
   grids = new Grid();
@@ -101,7 +107,10 @@ void drawCircle() {
 //background
 
 void updateBack(){
-  image(backg,0,0);  
+  image(backg,0,0);
+  image(bod,70,100);
+  image(brain,1300,100);
+  image(brain2,1300,550);
 }
 
 void pieChart(float diameter, int[] data) {
