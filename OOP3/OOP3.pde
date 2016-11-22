@@ -21,9 +21,11 @@ PImage brain2;
 //array of angles for pie chart
 int[] angles = { 5, 10, 45, 35, 60, 38, 75, 88 };
 
+int [] array ={80,100,80,50,30,9};
 
 void setup(){
   size(1920,800);
+  frameRate(10);
   
   backg = loadImage("HIRO.jpg");
   bod = loadImage("bod.gif");
@@ -35,6 +37,7 @@ void setup(){
   dia = new Diagnosis();
   grids = new Grid();
   heart= new Heart();
+
     
 }
 
@@ -46,13 +49,13 @@ void draw(){
   translate(700,150);
   dia.displayLine();
   scan.drawScan();
- 
+
   popMatrix();
-  
+
   pieChart(220, angles);
   grids.displayGrid();
   heart.heart();
-   
+  graph();
 }
 
 //background /images
@@ -71,5 +74,24 @@ void pieChart(float diameter, int[] data) {
     fill(0,random(255),255);
     arc(1720, 650, diameter, diameter, lastAngle, lastAngle+radians(angles[i]));
     lastAngle += radians(angles[i]);}
-  }
+ 
   
+}
+
+//graph
+void graph(){
+  
+  
+  stroke(255);
+  for(int i=0; i<array.length;i++){
+  
+    float rectWidth = 200/(array.length);//x
+    float value = random(array[i] );
+    float ypos = 150 - value;//y position
+    fill(0,0,random(255));
+    
+    rect((rectWidth *i)+1420,ypos,rectWidth,value);
+  
+  }
+
+}
