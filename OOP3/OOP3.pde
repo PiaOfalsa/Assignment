@@ -10,6 +10,7 @@ Scanner scan;
 Diagnosis dia;
 Grid grids;
 Heart heart;
+Texts texts;
 
 
 //to store image files
@@ -18,6 +19,7 @@ PImage bod;
 PImage brain;
 PImage brain2;
 
+PFont big;
 //array of angles for pie chart
 int[] angles = { 5, 10, 45, 35, 60, 38, 75, 88 };
 
@@ -26,6 +28,7 @@ int [] array ={80,100,80,50,30,9};
 void setup(){
   size(1920,800);
   frameRate(10);
+  
   
   backg = loadImage("HIRO.jpg");
   bod = loadImage("bod.gif");
@@ -37,6 +40,7 @@ void setup(){
   dia = new Diagnosis();
   grids = new Grid();
   heart= new Heart();
+  texts=new Texts();
 
     
 }
@@ -50,12 +54,13 @@ void draw(){
   dia.displayLine();
   scan.drawScan();
 
-  popMatrix();
+ popMatrix();
 
   pieChart(220, angles);
   grids.displayGrid();
   heart.heart();
   graph();
+  texts.displayTexts();
 }
 
 //background /images

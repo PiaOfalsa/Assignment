@@ -29,7 +29,7 @@ class Scanner{
     
     //translate(700,150);
     
-    float FrameCo = frameCount*0.005;
+    float FrameCo = frameCount*0.05;
     for(int radius=480; radius<800; radius+=220) {
       
       //NOISE
