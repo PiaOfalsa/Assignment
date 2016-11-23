@@ -76,7 +76,7 @@ void pieChart(float diameter, int[] data) {
   float lastAngle = 0;
   for (int i = 0; i < data.length; i++) {
     noStroke();
-    fill(0,random(255),255);
+    fill(255,random(255),255);
     arc(1720, 650, diameter, diameter, lastAngle, lastAngle+radians(angles[i]));
     lastAngle += radians(angles[i]);}
  
@@ -93,7 +93,7 @@ void graph(){
     float rectWidth = 200/(array.length);//x
     float value = random(array[i] );
     float ypos = 150 - value;//y position
-    fill(0,0,random(255));
+    fill(0,255,random(255));
     
     rect((rectWidth *i)+1420,ypos,rectWidth,value);
   

@@ -9,7 +9,9 @@ class Texts{
   Texts()
   {
     xpos=1200;
-    ypos=-210;
+    ypos=-200;
+    
+    
     
     xpos2=1200;
     ypos2=280;
