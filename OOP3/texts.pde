@@ -23,11 +23,11 @@ class Texts{
     fill(172,247,249);
     //textSize(40);
     textFont(smallHero);
-    text("B A S E L I N E:",xpos,ypos);
+    text("B A S E L I N E",xpos,ypos);
     stroke(172,247,249);
     strokeWeight(7);
     textFont(smallHero);
-    text("P A T I E N T: ",xpos2,ypos2);
+    text("P A T I E N T ",xpos2,ypos2);
  
     
     
