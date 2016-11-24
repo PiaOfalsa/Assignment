@@ -1,11 +1,9 @@
 class Baymax
 {
-  int circX[]={450,360,550}
+  int circX[];
   
   Baymax(){
- 
-  
-  
+    
   }
 
   void drawBay(){
@@ -13,6 +11,8 @@ class Baymax
     strokeWeight(1);
     stroke(#CE2C2C);
     fill(255);
+    
+    //x,y,width,height
     ellipse(450,345, 400,300);
     //upper bod
     stroke(#CE2C2C);

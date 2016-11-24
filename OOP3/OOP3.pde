@@ -4,6 +4,7 @@
   C15734155
 */
 
+float startMillis = millis();
 //declare class
 
 Scanner scan;
@@ -11,6 +12,8 @@ Diagnosis dia;
 Grid grids;
 Heart heart;
 Texts texts;
+Baymax bay;
+
 
 
 //to store image files
@@ -18,6 +21,7 @@ PImage backg;
 PImage bod;
 PImage brain;
 PImage brain2;
+
 
 PFont big;
 //array of angles for pie chart
@@ -28,6 +32,8 @@ int [] array ={80,100,80,50,30,9};
 void setup(){
   size(1920,800);
   frameRate(10);
+   bay=new Baymax();
+  bay.drawBay();
   
   
   backg = loadImage("HIRO.jpg");
@@ -41,12 +47,32 @@ void setup(){
   grids = new Grid();
   heart= new Heart();
   texts=new Texts();
+ 
+  //int m=millis();
+  startMillis=millis();
+  
 
-    
+
+
+  
 }
 
+
+
+
 void draw(){ 
- 
+  
+if (keyPressed == false) {
+   setup(); 
+  } else
+  {
+    
+   if(millis()> 9000)
+    {
+    draw();
+    }
+  }
+
   updateBack();
   
   pushMatrix();
@@ -61,6 +87,7 @@ void draw(){
   heart.heart();
   graph();
   texts.displayTexts();
+  
 }
 
 //background /images
