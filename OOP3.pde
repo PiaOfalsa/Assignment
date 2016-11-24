@@ -36,7 +36,8 @@ void setup(){
    bay=new Baymax();
    
    
-  bay.drawBay();
+
+
   
   
   backg = loadImage("HIRO.jpg");
@@ -50,6 +51,9 @@ void setup(){
   grids = new Grid();
   heart= new Heart();
   texts=new Texts();
+  
+  bay.drawBay();
+  texts.displayTexts2();
  
 
   
