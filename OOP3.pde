@@ -29,16 +29,36 @@ int[] angles = { 5, 10, 45, 35, 60, 38, 75, 88 };
 
 int [] array ={80,100,80,50,30,9};
 
+
+
+boolean[] keys = new boolean[1000];
+
+void keyPressed()
+{ 
+  keys[keyCode] = true;
+}
+ 
+void keyReleased()
+{
+  keys[keyCode] = false; 
+}
+
+boolean checkKey(int k)
+{
+  if (keys.length >= k) 
+  {
+    return keys[k] || keys[Character.toUpperCase(k)];  
+  }
+  return false;
+}
+
 void setup(){
   
   size(1920,800);
   frameRate(9);
    bay=new Baymax();
    
-   
 
-
-  
   
   backg = loadImage("HIRO.jpg");
   bod = loadImage("bod.gif");
@@ -52,8 +72,8 @@ void setup(){
   heart= new Heart();
   texts=new Texts();
   
-  bay.drawBay();
-  texts.displayTexts2();
+  //
+  //texts.displayTexts2();
  
 
   
@@ -62,7 +82,24 @@ void setup(){
 
 
 void draw(){ 
+  //bay.drawBay();
   
+ updateBack();
+  
+  pushMatrix();
+  translate(700,150);
+  dia.control(); 
+//dia.displayLine();
+  scan.drawScan();
+
+ popMatrix();
+
+  pieChart(220, angles);
+  grids.displayGrid();
+  heart.heart();
+  graph();
+  texts.displayTexts();
+/*  
    if (mousePressed==true)
   {
     display();
@@ -72,7 +109,7 @@ void draw(){
      background(0);
     }
   }
-  
+*/  
 }
 
 //background /images
@@ -117,20 +154,6 @@ void graph(){
 
 
 void display(){
-  
- updateBack();
-  
-  pushMatrix();
-  translate(700,150);
-  dia.displayLine();
-  scan.drawScan();
 
- popMatrix();
-
-  pieChart(220, angles);
-  grids.displayGrid();
-  heart.heart();
-  graph();
-  texts.displayTexts();
   
 }
