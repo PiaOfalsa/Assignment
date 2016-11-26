@@ -20,7 +20,8 @@ void drawInterF()
   for(int i=0; i<positions.length;i++){
   stroke(200,100);
   line(positions[i].x,margin,positions[i].x,height - margin);
-  }
+  text(years[i],positions[i].x -15, height - margin +20);//year labels  
+}
    
 }
   
