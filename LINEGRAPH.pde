@@ -12,6 +12,19 @@ class Linegraph{
   //container for pos info
   //keep track of x and y var
   
+  
+
+void drawInterF()
+{
+  //vert lines
+  for(int i=0; i<positions.length;i++){
+  stroke(200,100);
+  line(positions[i].x,margin,positions[i].x,height - margin);
+  }
+   
+}
+  
+  
 void processData(){
    fill(200);
  //load values
