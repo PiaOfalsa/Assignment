@@ -11,6 +11,8 @@ class Linegraph{
   PVector [] positions= new  PVector[5];
   //container for pos info
   //keep track of x and y var
+  int overallMin;
+  int overallMax;
   
   
 
@@ -22,7 +24,8 @@ void drawInterF()
   line(positions[i].x,margin,positions[i].x,height - margin);
   text(years[i],positions[i].x -15, height - margin +20);//year labels  
 }
-   
+  text(overallMax,5,margin);  //max cacluclation displayed 
+  text(overallMin,5,height-margin);
 }
   
   
@@ -41,8 +44,8 @@ void processData(){
     years[i-1]=int(thisRow[1]);
     injuries[i-1]=int(thisRow[2]);
   }
-  float overallMin = min(injuries);
-  float overallMax= max (injuries);
+  int overallMin = min(injuries);
+  int overallMax= max (injuries);
   println(overallMax);
   
   margin =50;
