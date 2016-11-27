@@ -9,7 +9,7 @@
 
 Scanner scan;
 Diagnosis dia;
-Grid grids;
+
 Heart heart;
 Texts texts;
 Baymax bay;
@@ -86,7 +86,7 @@ void setup(){
   //create new object
   scan =new Scanner();
   dia = new Diagnosis();
-  grids = new Grid();
+
   heart= new Heart();
   texts=new Texts();
  
@@ -112,7 +112,7 @@ void draw(){
  popMatrix();
 
   pieChart(220, angles);
-  grids.displayGrid();
+
   
   heart.heart();
   graph();
@@ -165,7 +165,6 @@ void pieChart(float diameter, int[] data) {
 //graph
 void graph(){
   
-  
   stroke(255);
   for(int i=0; i<array.length;i++){
   
@@ -185,7 +184,7 @@ void drawInterF()
   //vert lines
   for(int i=0; i<positions.length;i++){
   stroke(200,100);
-  line(positions[i].x,70,positions[i].x,height/2-100- margin);
+  line(positions[i].x,-80,positions[i].x,height/2-280- margin);
   text(years[i],positions[i].x -15, height/2 - margin +20); 
   
   if(i>0){
@@ -220,8 +219,8 @@ void processData(){
     
     
     float adjScore = map(injuries[i],overallMin-50,overallMax-50,50,graphHeight);
-    float yPos = height/2 - margin -adjScore;
-    float xPos = margin + (xSpacer *i);
+    float yPos = height/2-150 - margin -adjScore;
+    float xPos = margin+1120+ (xSpacer *i);
     positions[i]=new PVector(xPos,yPos);
     
   }
