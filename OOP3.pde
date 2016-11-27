@@ -15,7 +15,6 @@ Texts texts;
 Baymax bay;
 
 
-
 //to store image files
 PImage backg;
 PImage bod;
@@ -29,6 +28,26 @@ int[] angles = { 5, 10, 45, 35, 60, 38, 75, 88 };
 
 int [] array ={80,100,80,50,30,9};
 
+//line graph details
+ String filename ="data.csv";
+  String [] rawData;
+  int [] years= new int[5];
+  int[] injuries = new int[5];
+  
+  int margin,graphHeight;
+  float xSpacer;
+  
+  PVector [] positions= new  PVector[5];
+  
+  //container for pos info
+  //keep track of x and y var
+  
+  
+  int overallMin = min(injuries);
+  int overallMax= max (injuries);
+  //println(overallMax);
+  
+  
 
 
 boolean[] keys = new boolean[1000];
@@ -52,14 +71,13 @@ boolean checkKey(int k)
   return false;
 }
 
+
 void setup(){
   
   size(1920,800);
   frameRate(9);
-   bay=new Baymax();
+  bay=new Baymax();
    
-
-  
   backg = loadImage("HIRO.jpg");
   bod = loadImage("bod.gif");
   brain = loadImage("brain.png");
@@ -71,10 +89,9 @@ void setup(){
   grids = new Grid();
   heart= new Heart();
   texts=new Texts();
-  
-  //
-  //texts.displayTexts2();
  
+   processData();
+  
 
   
 }
@@ -96,9 +113,22 @@ void draw(){
 
   pieChart(220, angles);
   grids.displayGrid();
+  
   heart.heart();
   graph();
   texts.displayTexts();
+  
+  //line graph
+  
+  drawInterF();
+   
+   fill(0,random(255),random(255));
+   //load values
+   for(int i=0;i<positions.length;i++){
+     ellipse(positions[i].x,positions[i].y,15,15);
+   }
+
+
 /*  
    if (mousePressed==true)
   {
@@ -150,10 +180,49 @@ void graph(){
 
 }
 
-
-
-
-void display(){
-
+void drawInterF()
+{
+  //vert lines
+  for(int i=0; i<positions.length;i++){
+  stroke(200,100);
+  line(positions[i].x,70,positions[i].x,height/2-100- margin);
+  text(years[i],positions[i].x -15, height/2 - margin +20); 
   
+  if(i>0){
+    stroke(200);
+    line(positions[i].x,positions[i].y,positions[i-1].x,positions[i-1].y);
+  }
+}
+  text(overallMax,5,margin);
+   text(overallMin,5,height/2-margin);
+}
+  
+
+void processData(){
+
+ 
+  rawData = loadStrings(filename);
+  
+  for(int i=1;i<rawData.length;i++){
+    String[] thisRow = split(rawData[i],",");
+    years[i-1]=int(thisRow[1]);
+    injuries[i-1]=int(thisRow[2]);
+  }
+     overallMin = min(injuries);
+     overallMax= max (injuries);
+      
+  
+  margin =300;
+  graphHeight = (height-100-margin) - margin;
+  xSpacer = (width/2-100 - margin - margin)/(years.length -1);
+  
+  for(int i=0;i<injuries.length;i++){
+    
+    
+    float adjScore = map(injuries[i],overallMin-50,overallMax-50,50,graphHeight);
+    float yPos = height/2 - margin -adjScore;
+    float xPos = margin + (xSpacer *i);
+    positions[i]=new PVector(xPos,yPos);
+    
+  }
 }
