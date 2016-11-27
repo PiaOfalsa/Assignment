@@ -26,7 +26,7 @@ PFont big;
 //array of angles for pie chart
 int[] angles = { 5, 10, 45, 35, 60, 38, 75, 88 };
 
-int [] array ={80,100,80,50,30,9};
+int [] array ={80,10,80,100,30,6,140,70,99};
 
 //line graph details
  String filename ="data.csv";
@@ -120,6 +120,8 @@ void draw(){
   
   //line graph
   
+ strokeWeight(4);  
+  textSize(28);
   drawInterF();
    
    fill(0,random(255),random(255));
@@ -146,8 +148,8 @@ void draw(){
 void updateBack(){
   image(backg,0,0);
   image(bod,50,140);
-  image(brain,1360,100);
-  image(brain2,1360,580);
+  image(brain,1340,170);
+  image(brain2,1340,560);
 }
 
 //piechartt
@@ -168,7 +170,7 @@ void graph(){
   stroke(255);
   for(int i=0; i<array.length;i++){
   
-    float rectWidth = 200/(array.length);//x
+    float rectWidth = 260/(array.length);//x
     float value = random(array[i] );
     float ypos = 150 - value;//y position
     fill(0,255,random(255));
@@ -185,18 +187,22 @@ void drawInterF()
   for(int i=0; i<positions.length;i++){
   stroke(200,100);
   line(positions[i].x,-80,positions[i].x,height/2-280- margin);
-  text(years[i],positions[i].x -15, height/2 - margin +20); 
+  
+  textSize(20); 
+  fill(255);
+  text(years[i],positions[i].x -80, height/2-280 - margin +20); 
   
   if(i>0){
     stroke(200);
     line(positions[i].x,positions[i].y,positions[i-1].x,positions[i-1].y);
   }
 }
-  text(overallMax,5,margin);
-   text(overallMin,5,height/2-margin);
+   textSize(20); 
+   fill(255);
+   text(overallMax,400,500);
+   text(overallMin,400,500);
 }
   
-
 void processData(){
 
  
