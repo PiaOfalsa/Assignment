@@ -22,7 +22,7 @@ class Scanner{
     
   }
     void drawScan() {
-    
+    //loop();
     strokeCap(ROUND);
     colorMode(RGB);
     noFill();
