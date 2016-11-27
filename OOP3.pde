@@ -5,6 +5,11 @@
  */
 
 //declare class
+import ddf.minim.*;
+
+Minim minim;
+AudioPlayer hello;
+
 
 Scanner scan;
 Diagnosis dia;
@@ -19,7 +24,7 @@ PImage backg;
 PImage bod;
 PImage brain;
 PImage brain2;
-
+PFont smallHero;
 
 PFont big;
 int t=millis()+20000;
@@ -74,12 +79,15 @@ void setup() {
   size(1920, 800);
   background(0);
   frameRate(9);
-  
+  smallHero = loadFont("smallHero.vlw"); 
   bay=new Baymax();
-  
-  bay.drawBay();
+   bay.drawBay();
  
-    
+  minim=new Minim(this);
+  hello = minim.loadFile("intro.mp3");
+  hello.play();
+ 
+ 
   backg = loadImage("HIRO.jpg");
   bod = loadImage("bod.gif");
   brain = loadImage("brain.png");
@@ -91,44 +99,41 @@ void setup() {
 
   heart= new Heart();
   texts=new Texts();
-  processData();  
+  processData();
 }
 
 void draw() { 
-  
- bay.drawBay();
- 
-if (frameCount>100)
-{
-  updateBack();
-  
-  pushMatrix();
-  translate(700, 150);
-  dia.control(); 
-  scan.drawScan();
-  popMatrix();
-  pieChart(220, angles);
-  heart.heart();
-  graph();
-  texts.displayTexts();
 
-  //line graph
+  // bay.drawBay();
 
-  strokeWeight(4);  
-  textSize(28);
-  drawInterF();
-  
+  if (frameCount>100)
+  {
+    updateBack();
 
-   
-  fill(0, random(255), random(255));
-  //load values
-  for (int i=0; i<positions.length; i++) {
-    ellipse(positions[i].x, positions[i].y, 15, 15);
+    pushMatrix();
+    translate(700, 150);
+    dia.control(); 
+    scan.drawScan();
+    popMatrix();
+    pieChart(220, angles);
+    heart.heart();
+    graph();
+    texts.displayTexts();
+
+    //line graph
+
+    strokeWeight(4);  
+    textSize(28);
+    drawInterF();
+
+
+
+    fill(0, random(255), random(255));
+    //load values
+    for (int i=0; i<positions.length; i++) {
+      ellipse(positions[i].x, positions[i].y, 15, 15);
+    }
   }
- 
-
-}
-
 }
 
 //background /images
@@ -172,7 +177,7 @@ void drawInterF()
   for (int i=0; i<positions.length; i++) {
     stroke(200, 100);
     line(positions[i].x, -80, positions[i].x, height/2-280- margin);
- 
+
     stroke(255);
     textSize(20);
     text(years[i], positions[i].x, height - margin +20); 
@@ -182,8 +187,12 @@ void drawInterF()
       line(positions[i].x, positions[i].y, positions[i-1].x, positions[i-1].y);
     }
   }
-  
-  textAlign(LEFT, TOP);
+
+  fill(255);
+  stroke(255);
+  strokeWeight(7);
+  textFont(smallHero);
+  textSize(30);
   text(overallMax, 400, 500);
   text(overallMin, 400, 500);
 }
