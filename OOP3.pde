@@ -76,15 +76,16 @@ boolean checkKey(int k)
 
 void setup() {
 
-  size(1920, 800);
-  background(0);
+  
   frameRate(9);
   smallHero = loadFont("smallHero.vlw"); 
   bay=new Baymax();
-   bay.drawBay();
+  size(1920, 800);
+  bay.drawBay();
+   
  
   minim=new Minim(this);
-  hello = minim.loadFile("intro.mp3");
+  hello = minim.loadFile("Hello.mp3");
   hello.play();
  
  
@@ -106,7 +107,7 @@ void draw() {
 
   // bay.drawBay();
 
-  if (frameCount>100)
+  if (frameCount>45)
   {
     updateBack();
 
