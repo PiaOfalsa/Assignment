@@ -10,7 +10,7 @@ import ddf.minim.*;
 Minim minim;
 AudioPlayer hello;
 
-
+BloodCell blood;
 Scanner scan;
 Diagnosis dia;
 
@@ -38,6 +38,8 @@ String filename ="data.csv";
 String [] rawData;
 int [] years= new int[5];
 int[] injuries = new int[5];
+BloodCell[] bloods = new BloodCell[10];
+
 
 int margin, graphHeight;
 float xSpacer;
@@ -75,14 +77,19 @@ boolean checkKey(int k)
 
 
 void setup() {
-
+  
   
   frameRate(9);
   smallHero = loadFont("smallHero.vlw"); 
   bay=new Baymax();
   size(1920, 800);
   bay.drawBay();
-   
+  
+  
+  
+  for (int i = 0; i < bloods.length; i++) {
+    bloods[i] = new BloodCell(random(width), random(height));
+  }
  
   minim=new Minim(this);
   hello = minim.loadFile("Hello.mp3");
@@ -100,6 +107,7 @@ void setup() {
 
   heart= new Heart();
   texts=new Texts();
+  
   processData();
 }
 
@@ -118,26 +126,56 @@ void draw() {
     popMatrix();
     pieChart(220, angles);
     heart.heart();
+
     graph();
     texts.displayTexts();
-
-    //line graph
-
+ 
     strokeWeight(4);  
     textSize(28);
     drawInterF();
-
-
 
     fill(0, random(255), random(255));
     //load values
     for (int i=0; i<positions.length; i++) {
       ellipse(positions[i].x, positions[i].y, 15, 15);
+     
+    }
+    
+   
+          if (keyPressed) {
+    if (key == 'b' || key == 'B') {
+      
+       background(255,0,0);
+
+  loadPixels();
+  for (int x = 0; x < width; x++) {
+    for (int y = 0; y < height; y++) {
+      int index = x + y * width;
+      float sum = 0;
+      for (BloodCell b : bloods) {
+        float d = dist(x, y, b.pos.x, b.pos.y);
+        sum += 10 * b.r / d;
+      }
+      pixels[index] = color(sum, 255, 255);
     }
   }
+
+  updatePixels();
+
+  for (BloodCell b : bloods) {
+    b.update();
+    //b.show();
+  }
+
+  }
+    }
+  }//end if
+  
+  
+  
+ 
 }
 
-//background /images
 void updateBack() {
   image(backg, 0, 0);
   image(bod, 50, 140);
@@ -225,3 +263,4 @@ void processData() {
     positions[i]=new PVector(xPos, yPos);
   }
 }
+   
