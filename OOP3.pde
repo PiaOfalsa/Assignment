@@ -10,7 +10,7 @@ import ddf.minim.*;
 Minim minim;
 AudioPlayer hello;
 
-BloodCell blood;
+
 Scanner scan;
 Diagnosis dia;
 
@@ -18,6 +18,7 @@ Heart heart;
 Texts texts;
 Baymax bay;
 
+BloodCell[] bloods = new BloodCell[10];
 
 //to store image files
 PImage backg;
@@ -38,7 +39,7 @@ String filename ="data.csv";
 String [] rawData;
 int [] years= new int[5];
 int[] injuries = new int[5];
-BloodCell[] bloods = new BloodCell[10];
+
 
 
 int margin, graphHeight;
@@ -76,19 +77,21 @@ boolean checkKey(int k)
 }
 
 
+
 void setup() {
   
   
   frameRate(9);
   smallHero = loadFont("smallHero.vlw"); 
+ 
   bay=new Baymax();
   size(1920, 800);
   bay.drawBay();
   
-  
-  
+
+  colorMode(HSB);
   for (int i = 0; i < bloods.length; i++) {
-    bloods[i] = new BloodCell(random(width), random(height));
+    bloods[i] = new BloodCell(random(width/2), random(height/2));
   }
  
   minim=new Minim(this);
@@ -142,10 +145,12 @@ void draw() {
     }
     
    
-          if (keyPressed) {
-    if (key == 'b' || key == 'B') {
-      
-       background(255,0,0);
+    if (keyPressed)
+    {
+        if (key == 'b' || key == 'B')
+        {
+          loop();
+            background(255,0,0);
 
   loadPixels();
   for (int x = 0; x < width; x++) {
@@ -156,7 +161,7 @@ void draw() {
         float d = dist(x, y, b.pos.x, b.pos.y);
         sum += 10 * b.r / d;
       }
-      pixels[index] = color(sum, 255, 255);
+      pixels[index] = color(sum, random(255), 255);
     }
   }
 
@@ -166,9 +171,13 @@ void draw() {
     b.update();
     //b.show();
   }
-
-  }
+          
+          
+          
+         }
     }
+    
+    
   }//end if
   
   
