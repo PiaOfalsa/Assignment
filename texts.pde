@@ -77,13 +77,27 @@ class Texts{
     noFill();
     stroke(172,247,249);
     strokeWeight(3);
-    rect(180,250,180,90);
-     rect(190,260,80,30);
+    rect(160,250,180,85);
+    text("ECG",175,280);
+    rect(170,260,40,25);
     begin = millis();
     time = duration = random(150,200);
     if (time > 0)  time = duration - (millis() - begin)/90;
     textSize(30);
-    text(time, 180, 325);
+    text(time, 160, 325);
+    
+    noFill();
+    stroke(172,247,249);
+    textSize(15);
+    strokeWeight(3);
+    rect(160,350,180,85);
+    text("NBP",175,380);
+    rect(170,360,40,25);
+    begin = millis();
+    time = duration =100;
+    if (time > 0)  time = duration - (millis() - begin)/90;
+    textSize(30);
+    text(random(time), 160, 420);
   
   
   }
