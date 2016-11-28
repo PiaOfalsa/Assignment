@@ -221,9 +221,11 @@ void drawInterF()
   //vert lines
   for (int i=0; i<positions.length; i++) {
     stroke(200, 100);
+    
+    textSize(10);
     line(positions[i].x, -80, positions[i].x, height/2-280- margin);
-
-    text(years[i], positions[i].x, height - margin +20); 
+    
+    text(years[i], positions[i].x-10, height/2-310 - margin +15); 
 
     if (i>0) {
       stroke(200);
@@ -231,13 +233,8 @@ void drawInterF()
     }
   }
 
-  fill(255);
-  stroke(255);
-  strokeWeight(7);
-  textFont(smallHero);
-  textSize(10);
-  text(overallMax, 400, 500);
-  text(overallMin, 400, 500);
+  
+ 
 }
 
 void processData() {
