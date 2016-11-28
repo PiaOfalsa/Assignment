@@ -163,7 +163,7 @@ void draw() {
         float d = dist(x, y, b.pos.x, b.pos.y);
         sum += 10 * b.r / d;
       }
-      pixels[index] = color(255, sum, sum);
+      pixels[index] = color(255,sum,sum%255);
     }
   }
 
