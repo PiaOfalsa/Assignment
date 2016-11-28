@@ -91,7 +91,7 @@ void setup() {
 
   colorMode(HSB);
   for (int i = 0; i < bloods.length; i++) {
-    bloods[i] = new BloodCell(random(width/2), random(height/2));
+    bloods[i] = new BloodCell(random(width), random(height));
   }
  
   minim=new Minim(this);
@@ -131,7 +131,9 @@ void draw() {
     heart.heart();
 
     graph();
+    drawInterF();
     texts.displayTexts();
+    texts.displaySymptoms();
  
     strokeWeight(4);  
     textSize(28);
@@ -161,7 +163,7 @@ void draw() {
         float d = dist(x, y, b.pos.x, b.pos.y);
         sum += 10 * b.r / d;
       }
-      pixels[index] = color(sum, random(255), 255);
+      pixels[index] = color(255, sum, sum);
     }
   }
 
@@ -170,19 +172,12 @@ void draw() {
   for (BloodCell b : bloods) {
     b.update();
     //b.show();
-  }
-          
-          
-          
-         }
-    }
-    
+  }        
+     }
+   }  
     
   }//end if
   
-  
-  
- 
 }
 
 void updateBack() {
@@ -215,6 +210,8 @@ void graph() {
     fill(0, random(255), 255);
 
     rect((rectWidth *i)+1420, ypos, rectWidth, value);
+    
+    
   }
 }
 
@@ -226,8 +223,6 @@ void drawInterF()
     stroke(200, 100);
     line(positions[i].x, -80, positions[i].x, height/2-280- margin);
 
-    stroke(255);
-    textSize(20);
     text(years[i], positions[i].x, height - margin +20); 
 
     if (i>0) {

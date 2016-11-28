@@ -5,6 +5,7 @@ class Texts{
    int xpos2;//x pos
    int ypos2;
    PFont smallHero;
+   PFont small;
 
   Texts()
   {
@@ -15,7 +16,9 @@ class Texts{
     
     xpos2=1150;
     ypos2=240;
-    smallHero = loadFont("smallHero.vlw"); 
+    
+    smallHero = loadFont("smallHero.vlw");
+    small= loadFont("Calibri-Bold-10.vlw");
   }
   
     void displayTexts()
@@ -34,16 +37,18 @@ class Texts{
     
     
   }
-    void displayTexts2()
-  {
-    
+  
+  
+  void displaySymptoms(){
+   
+    fill(172,247,249);
     stroke(172,247,249);
     strokeWeight(100);
-    textSize(30);
-    textFont(smallHero);
-    text("H E L L O   I  A M    B A Y M A X  ",xpos2,ypos2);
-    text("PRESS AND HOLD THE MOUSE TO CONTINUE  ",xpos2,400);
     
-    
+    textFont(small);
+    textSize(10);
+    text("No Physical injury ",200,100);
+  
+  
   }
 }
