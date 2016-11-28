@@ -4,6 +4,11 @@ class Texts{
    int x;
    int xpos2;//x pos
    int ypos2;
+   
+   float begin; 
+   float duration;
+   float time;
+   
    PFont smallHero;
    PFont small;
    PFont symp;
@@ -68,6 +73,16 @@ class Texts{
     text("Vocal Flucatuation",180,70);
     text("Emotional Instability",180,100);
     
+    //numbers
+    noFill();
+    stroke(172,247,249);
+    strokeWeight(3);
+    rect(180,230,180,60);
+    begin = millis();
+    time = duration = random(150,200);
+    if (time > 0)  time = duration - (millis() - begin)/90;
+    textSize(30);
+    text(time, 180, 270);
   
   
   }
