@@ -46,9 +46,14 @@ PVector [] positions= new  PVector[5];//keep track of x and y var mini line grap
 int overallMin = min(injuries);
 int overallMax= max (injuries);
 
+//variables for brain line graph
+
+ ArrayList<BRAIN> data = new ArrayList<BRAIN>();
+ float margins;
+ float min, max;
+
 
 void setup() {
-  
   
   frameRate(10);
   fontgraph= loadFont("smallHero.vlw"); 
@@ -59,7 +64,8 @@ void setup() {
   
 
   colorMode(HSB);
-  for (int i = 0; i < bloods.length; i++) {
+  for (int i = 0; i < bloods.length; i++)
+  {
     bloods[i] = new BloodCell(random(width), random(height));
   }
  
@@ -77,11 +83,13 @@ void setup() {
   //create new object
   scan =new Scanner();
   dia = new Diagnosis();
-
   heart= new Heart();
   texts=new Texts();
   
   processData();
+  loadData();
+  minmax();
+  margins = width * 0.1f;
 }
 
 void draw() { 
@@ -150,18 +158,35 @@ void draw() {
    //if statement interactive line graph
    
    if (mousePressed)
+   
     {
-        if (mouseX >110 && mouseX<240 && mouseY>270 && mouseY<310)
+        
+        if (mouseX >1200 && mouseX<1500 && mouseY>550 && mouseY<660)
         {
-          
-          
+        
+        stroke(0);
+        textSize(40);
+        
+        background(172,247,249);
+       
+        pushMatrix();
+        translate(-210, -310);
+        
+        drawLineGraph();
+        drawBRAINBrainwaves();
+        popMatrix();
+                  
         }//inner if
     }//if brain
+
    
     
   }//end if control
   
 }
+
+
+
 
 void updateBack() {
   image(backg, 0, 0);
@@ -247,6 +272,96 @@ void processData() {
     float yPos = height/2-150 - margin -adjScore;
     float xPos = margin+1120+ (xSpacer *i);
     positions[i]=new PVector(xPos, yPos);
+  }
+}
+
+
+//brain line graph
+
+
+void loadData()
+{
+  Table t = loadTable("brain.csv");
+  for(int i = 0 ; i < t.getRowCount(); i ++)
+  {
+    TableRow row = t.getRow(i);
+    BRAIN brain = new BRAIN(row);
+    data.add(brain);
+  }
+}
+
+
+void minmax()
+{
+  min = max = data.get(0).brainwaves; 
+  for (BRAIN brain:data)
+  {
+    if (brain.brainwaves < min)
+    {
+      min = brain.brainwaves;
+    }
+    if (brain.brainwaves > max)
+    {
+      max = brain.brainwaves;
+    }    
+  }
+}
+
+
+void drawLineGraph()
+{
+  
+  
+  stroke(255,0,0);  
+  line(margins - 5, height - margins, width - margins, height - margins);
+  line(margins, margins, margins, height - margins + 5);
+  
+  
+  for (int i = 1 ; i < data.size() ; i ++)
+  {
+    stroke(0,0,255);
+    float x1 = map(i - 1, 0, data.size() - 1, margins, width - margins);
+    float y1 = map(data.get(i - 1).brainwaves, min, max, height - margins, margins);
+    float x2 = map(i, 0, data.size() - 1, margins, width - margins);
+    float y2 = map(data.get(i).brainwaves, min, max, height - margins, margins);
+    line(x1, y1, x2, y2);
+    
+  }  
+  text(" YEARLY BRAIN ACTIVITY ",700,height-margins-500);
+}
+
+
+void drawBRAINBrainwaves()
+{
+  if (mouseX >= margins && mouseX <= width - margins)
+  {
+    stroke(255, 255, 0);
+    strokeWeight(5);
+    fill(255, 255, 0);
+    line(mouseX, margins, mouseX, height - margins);
+    int i = (int) map(mouseX, margins, width - margins, 0, data.size() - 1);
+    float y = map(data.get(i).brainwaves, min, max, height - margins, margins);
+    
+    
+    //ellipse(mouseX, y, 10, 10);
+     beginShape();
+     vertex(mouseX,y-50);
+     vertex(mouseX+14,y-20);
+     vertex(mouseX+47,y-15);
+     vertex(mouseX+23,y+7);
+     vertex(mouseX+29,y+40);
+     vertex(mouseX,y+25);
+     vertex(mouseX-29,y+40);
+     vertex(mouseX-23,y+7);
+     vertex(mouseX-47,y-15);
+     vertex(mouseX-14,y-20);
+     endShape(CLOSE);
+    
+    fill(0);
+    textSize(10);
+    text("Year: " + data.get(i).year, mouseX + 50, y);
+    text("Brain Activity Levels: " + data.get(i).brainwaves, mouseX + 50, y + 30);
+    text("Imagination " + data.get(i).brainwaves, mouseX + 50, y + 50);
   }
 }
 
