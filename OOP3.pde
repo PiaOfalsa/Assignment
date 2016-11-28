@@ -101,7 +101,7 @@ void setup() {
   hello.play();
  
  
-  backg = loadImage("HIRO.jpg");
+  backg = loadImage("HIRO.gif");
   bod = loadImage("bod.gif");
   brain = loadImage("brain.png");
   brain2 = loadImage("brain.png");
@@ -188,6 +188,7 @@ void updateBack() {
   image(bod, 50, 140);
   image(brain, 1340, 170);
   image(brain2, 1340, 560);
+ 
 }
 
 //piechartt
