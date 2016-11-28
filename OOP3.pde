@@ -9,6 +9,7 @@ import ddf.minim.*;
 
 Minim minim;
 AudioPlayer hello;
+AudioPlayer beep;
 
 
 Scanner scan;
@@ -96,6 +97,7 @@ void setup() {
  
   minim=new Minim(this);
   hello = minim.loadFile("Hello.mp3");
+  beep = minim.loadFile("beep.mp3");
   hello.play();
  
  
@@ -120,6 +122,7 @@ void draw() {
 
   if (frameCount>45)
   {
+    beep.play();
     updateBack();
 
     pushMatrix();
