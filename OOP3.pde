@@ -188,7 +188,10 @@ void updateBack() {
   image(bod, 50, 140);
   image(brain, 1340, 170);
   image(brain2, 1340, 560);
- 
+  noFill();
+  
+  stroke(172,247,249);
+  rect(15,15,1890,770);
 }
 
 //piechartt
