@@ -25,7 +25,7 @@ PImage backg;
 PImage bod;
 PImage brain;
 PImage brain2;
-PFont smallHero;
+PFont fontgraph;
 
 PFont big;
 int t=millis()+20000;
@@ -82,7 +82,7 @@ void setup() {
   
   
   frameRate(9);
-  smallHero = loadFont("smallHero.vlw"); 
+  fontgraph= loadFont("smallHero.vlw"); 
  
   bay=new Baymax();
   size(1920, 800);
@@ -235,7 +235,7 @@ void drawInterF()
   stroke(255);
   strokeWeight(7);
   textFont(smallHero);
-  textSize(30);
+  textSize(10);
   text(overallMax, 400, 500);
   text(overallMin, 400, 500);
 }

@@ -6,6 +6,7 @@ class Texts{
    int ypos2;
    PFont smallHero;
    PFont small;
+   PFont symp;
 
   Texts()
   {
@@ -19,6 +20,7 @@ class Texts{
     
     smallHero = loadFont("smallHero.vlw");
     small= loadFont("Calibri-Bold-10.vlw");
+    symp= loadFont("Ebrima-Bold-30.vlw");
   }
   
     void displayTexts()
@@ -43,11 +45,12 @@ class Texts{
    
     fill(172,247,249);
     stroke(172,247,249);
-    strokeWeight(100);
+    strokeWeight(3);
     
-    textFont(small);
-    textSize(10);
-    text("No Physical injury ",200,100);
+    textFont(symp);
+    textSize(30);
+    text("SYMPTOMS",180,-120);
+    line(180,-115,350,-115);
   
   
   }
