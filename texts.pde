@@ -1,15 +1,17 @@
 class Texts{
    int xpos;//x pos
    int ypos;
-   
+   int x;
    int xpos2;//x pos
    int ypos2;
    PFont smallHero;
    PFont small;
    PFont symp;
+   PFont symps;
 
   Texts()
   {
+    x=180;
     xpos=1150;
     ypos=-160;
     
@@ -21,6 +23,7 @@ class Texts{
     smallHero = loadFont("smallHero.vlw");
     small= loadFont("Calibri-Bold-10.vlw");
     symp= loadFont("Ebrima-Bold-30.vlw");
+    symps= loadFont("Ebrima-Bold-15.vlw");
   }
   
     void displayTexts()
@@ -51,6 +54,20 @@ class Texts{
     textSize(30);
     text("SYMPTOMS",180,-120);
     line(180,-115,350,-115);
+    
+    textFont(symp);
+    //textAlign(CENTER);
+    textSize(30);
+    text("      . . .    ",180,-80);
+    
+    textSize(15);
+    text("GPR54 Detected",180,-50);
+    text("High levels GnRH",180,-20);
+    text("Increade Pituitary Activity",180,10);
+    text("High Testosterone",180,40);
+    text("Vocal Flucatuation",180,70);
+    text("Emotional Instability",180,100);
+    
   
   
   }
