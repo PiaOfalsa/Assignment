@@ -82,7 +82,7 @@ boolean checkKey(int k)
 void setup() {
   
   
-  frameRate(9);
+  frameRate(10);
   fontgraph= loadFont("smallHero.vlw"); 
  
   bay=new Baymax();
@@ -150,9 +150,9 @@ void draw() {
     }
     
    
-    if (keyPressed)
+    if (mousePressed)
     {
-        if (key == 'b' || key == 'B')
+        if (mouseX >110 && mouseX<240 && mouseY>270 && mouseY<310)
         {
           loop();
             background(255,0,0);
