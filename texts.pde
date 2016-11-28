@@ -77,12 +77,13 @@ class Texts{
     noFill();
     stroke(172,247,249);
     strokeWeight(3);
-    rect(180,230,180,60);
+    rect(180,250,180,90);
+     rect(190,260,80,30);
     begin = millis();
     time = duration = random(150,200);
     if (time > 0)  time = duration - (millis() - begin)/90;
     textSize(30);
-    text(time, 180, 270);
+    text(time, 180, 325);
   
   
   }
