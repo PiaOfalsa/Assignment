@@ -11,7 +11,6 @@ Minim minim;
 AudioPlayer hello;
 AudioPlayer beep;
 
-
 Scanner scan;
 Diagnosis dia;
 
@@ -30,53 +29,22 @@ PFont fontgraph;
 
 PFont big;
 int t=millis()+20000;
+
 //array of angles for pie chart
 int[] angles = { 5, 10, 45, 35, 60, 38, 75, 88 };
 
-int [] array ={80, 10, 80, 100, 30, 6, 140, 70, 99};
+int [] BarArray ={80, 10, 80, 100, 30, 6, 140, 70, 99};
 
-//line graph details
+//line graph variables
 String filename ="data.csv";
 String [] rawData;
 int [] years= new int[5];
 int[] injuries = new int[5];
-
-
-
 int margin, graphHeight;
 float xSpacer;
-
-PVector [] positions= new  PVector[5];
-
-//container for pos info
-//keep track of x and y var
-
-
+PVector [] positions= new  PVector[5];//keep track of x and y var mini line graph
 int overallMin = min(injuries);
 int overallMax= max (injuries);
-
-
-boolean[] keys = new boolean[1000];
-
-void keyPressed()
-{ 
-  keys[keyCode] = true;
-}
-
-void keyReleased()
-{
-  keys[keyCode] = false;
-}
-
-boolean checkKey(int k)
-{
-  if (keys.length >= k) 
-  {
-    return keys[k] || keys[Character.toUpperCase(k)];
-  }
-  return false;
-}
-
 
 
 void setup() {
@@ -101,7 +69,7 @@ void setup() {
   hello.play();
  
  
-  backg = loadImage("HIRO.gif");
+  backg = loadImage("HIRO.jpg");
   bod = loadImage("bod.gif");
   brain = loadImage("brain.png");
   brain2 = loadImage("brain.png");
@@ -177,9 +145,21 @@ void draw() {
     //b.show();
   }        
      }
-   }  
+   } 
+   
+   //if statement interactive line graph
+   
+   if (mousePressed)
+    {
+        if (mouseX >110 && mouseX<240 && mouseY>270 && mouseY<310)
+        {
+          
+          
+        }//inner if
+    }//if brain
+   
     
-  }//end if
+  }//end if control
   
 }
 
@@ -194,7 +174,7 @@ void updateBack() {
   rect(15,15,1890,770);
 }
 
-//piechartt
+//method for pie chart
 void pieChart(float diameter, int[] data) {
   float lastAngle = 0;
   for (int i = 0; i < data.length; i++) {
@@ -205,23 +185,23 @@ void pieChart(float diameter, int[] data) {
   }
 }
 
-//graph
+//method for bar graph
 void graph() {
 
-  stroke(255);
-  for (int i=0; i<array.length; i++) {
+    stroke(255);
+    for (int i=0; i<BarArray.length; i++) {
 
-    float rectWidth = 260/(array.length);//x
-    float value = random(array[i] );
+    float rectWidth = 260/(BarArray.length);//x
+    float value = random(BarArray[i] );
     float ypos = 150 - value;//y position
     fill(0, random(255), 255);
 
     rect((rectWidth *i)+1420, ypos, rectWidth, value);
     
-    
   }
 }
 
+//line graph interface
 void drawInterF()
 {
   //background(0);
@@ -244,9 +224,9 @@ void drawInterF()
  
 }
 
+//to read data for line graph
 void processData() {
-
-
+  
   rawData = loadStrings(filename);
 
   for (int i=1; i<rawData.length; i++) {
@@ -257,13 +237,11 @@ void processData() {
   overallMin = min(injuries);
   overallMax= max (injuries);
 
-
   margin =300;
   graphHeight = (height-100-margin) - margin;
   xSpacer = (width/2-100 - margin - margin)/(years.length -1);
 
   for (int i=0; i<injuries.length; i++) {
-
 
     float adjScore = map(injuries[i], overallMin-50, overallMax-50, 50, graphHeight);
     float yPos = height/2-150 - margin -adjScore;
@@ -271,4 +249,6 @@ void processData() {
     positions[i]=new PVector(xPos, yPos);
   }
 }
+
+
    
