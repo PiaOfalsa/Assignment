@@ -4,9 +4,20 @@
  C15734155
  */
 
-//declare class
+
+/*/////////////////////////////////////////////////
+//declare class, libraries and global variables////
+*//////////////////////////////////////////////////
+
+
+/*
+  sound library used to play the audio files
+*/
 import ddf.minim.*;
 
+/*
+  sound library used to play the audio files
+*/
 Minim minim;
 AudioPlayer hello;
 AudioPlayer beep;
@@ -342,23 +353,13 @@ void drawBRAINBrainwaves()
     int i = (int) map(mouseX, margins, width - margins, 0, data.size() - 1);
     float y = map(data.get(i).brainwaves, min, max, height - margins, margins);
     
+    fill(255, 0, 0);
+    noStroke();
+    ellipse(mouseX, y, 10,10);
     
-    //ellipse(mouseX, y, 10, 10);
-     beginShape();
-     vertex(mouseX,y-50);
-     vertex(mouseX+14,y-20);
-     vertex(mouseX+47,y-15);
-     vertex(mouseX+23,y+7);
-     vertex(mouseX+29,y+40);
-     vertex(mouseX,y+25);
-     vertex(mouseX-29,y+40);
-     vertex(mouseX-23,y+7);
-     vertex(mouseX-47,y-15);
-     vertex(mouseX-14,y-20);
-     endShape(CLOSE);
     
     fill(0);
-    textSize(10);
+    textSize(18);
     text("Year: " + data.get(i).year, mouseX + 50, y);
     text("Brain Activity Levels: " + data.get(i).brainwaves, mouseX + 50, y + 30);
     text("Imagination " + data.get(i).brainwaves, mouseX + 50, y + 50);
