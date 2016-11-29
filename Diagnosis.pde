@@ -12,26 +12,17 @@ class Diagnosis{
    
   }
   
-  void displayLine()
-  {
-   
 
-    
-    
-  }
-  
   void control(){
         
- if (checkKey('w'))
-    {
-       fill(172,247,249);
+    fill(172,247,249);
     textSize(40);
     textFont(big);
     text("D I A G N O S I S",x,y);
     stroke(172,247,249);
     strokeWeight(7);
-      //displayLine();
-    }
+    //displayLine();
+  
   
   }
 }

@@ -17,19 +17,19 @@ class Scanner{
     FrameCo=0;
     start=0;
     stop=0;
-    ArcX=250;
-    ArcY=250;
+    ArcX=200;
+    ArcY=230;
     
   }
     void drawScan() {
-    
+    //loop();
     strokeCap(ROUND);
     colorMode(RGB);
     noFill();
     
     //translate(700,150);
     
-    float FrameCo = frameCount*0.005;
+    float FrameCo = frameCount*0.02;
     for(int radius=480; radius<800; radius+=220) {
       
       //NOISE
@@ -47,7 +47,7 @@ class Scanner{
       
       //if absolute value of a-v is LESS THAN PI
       if(abs(start-stop)<PI) {
-        strokeWeight(9);
+        strokeWeight(4);
         stroke(color(0,random(244,249),random(244,249)));//light blue/turqoise
         
       } 

@@ -10,9 +10,10 @@
 *//////////////////////////////////////////////////
 
 
-/*
-  sound library used to play the audio files
-*/
+/*/////////////////////////////////////////////////
+// sound library used to play the audio files     //
+// .* to include all functionality of the library//
+*/////////////////////////////////////////////////
 import ddf.minim.*;
 
 /*
@@ -22,14 +23,12 @@ Minim minim;
 AudioPlayer hello;
 AudioPlayer beep;
 
-Scanner scan;
-Diagnosis dia;
-
-Heart heart;
-Texts texts;
-Baymax bay;
-
-BloodCell[] bloods = new BloodCell[10];
+//declare objects
+Baymax bay;//introductory frame
+Scanner scan;// for the circle/arc scanner
+Diagnosis dia;//display the string DIAGNOSIS
+Heart heart;//displays beating heart drawn using vertex
+Texts texts;//displays texts
 
 //to store image files
 PImage backg;
@@ -38,15 +37,21 @@ PImage brain;
 PImage brain2;
 PFont fontgraph;
 
-PFont big;
-int t=millis()+20000;
+
+/*///////////////////////
+//  GLOBAL VARIABLES  //
+*///////////////////////
+
+//array that stores number of blood cell for the blood activity
+BloodCell[] bloods = new BloodCell[10];
 
 //array of angles for pie chart
-int[] angles = { 5, 10, 45, 35, 60, 38, 75, 88 };
+int[] angles = { 15, 10, 45, 25, 60, 38, 75, 98 };
 
+//array for the small bar graph
 int [] BarArray ={80, 10, 80, 100, 30, 6, 140, 70, 99};
 
-//line graph variables
+//small line graph variables
 String filename ="data.csv";
 String [] rawData;
 int [] years= new int[5];
@@ -58,20 +63,37 @@ int overallMin = min(injuries);
 int overallMax= max (injuries);
 
 //variables for brain line graph
-
- ArrayList<BRAIN> data = new ArrayList<BRAIN>();
- float margins;
- float min, max;
+ArrayList<BRAIN> data = new ArrayList<BRAIN>();
+float margins;
+float min, max;
 
 
 void setup() {
-  
-  frameRate(10);
-  fontgraph= loadFont("smallHero.vlw"); 
- 
-  bay=new Baymax();
   size(1920, 800);
+  frameRate(10);
+  
+ 
+  //create new object
+  scan =new Scanner();
+  dia = new Diagnosis();
+  heart= new Heart();
+  texts=new Texts();
+  bay=new Baymax();
+  
+  //sound var
+  minim=new Minim(this);
+  hello = minim.loadFile("Hello.mp3");
+  beep = minim.loadFile("beep.mp3");
+  hello.play();
+ 
+  //call introductory frame 
   bay.drawBay();
+  
+  //load images
+  backg = loadImage("HIRO.jpg");
+  bod = loadImage("bod.gif");
+  brain = loadImage("brain.png");
+  brain2 = loadImage("brain.png");
   
 
   colorMode(HSB);
@@ -80,23 +102,6 @@ void setup() {
     bloods[i] = new BloodCell(random(width), random(height));
   }
  
-  minim=new Minim(this);
-  hello = minim.loadFile("Hello.mp3");
-  beep = minim.loadFile("beep.mp3");
-  hello.play();
- 
- 
-  backg = loadImage("HIRO.jpg");
-  bod = loadImage("bod.gif");
-  brain = loadImage("brain.png");
-  brain2 = loadImage("brain.png");
-
-  //create new object
-  scan =new Scanner();
-  dia = new Diagnosis();
-  heart= new Heart();
-  texts=new Texts();
-  
   processData();
   loadData();
   minmax();
@@ -105,68 +110,77 @@ void setup() {
 
 void draw() { 
 
-  // bay.drawBay();
+  //draw should only be called when setup has been on for 45 frames
 
   if (frameCount>45)
   {
-    beep.play();
-    updateBack();
+    beep.play();//play scanning music
+    updateBack();//calls images back
 
     pushMatrix();
     translate(700, 150);
-    dia.control(); 
-    scan.drawScan();
+    dia.control(); //displays diagnosis
+    scan.drawScan();//displays circulating scanner
     popMatrix();
-    pieChart(220, angles);
-    heart.heart();
+    pieChart(220, angles);//displays a pie chart
+    heart.heart();//displays the heart
 
-    graph();
-    drawInterF();
-    texts.displayTexts();
-    texts.displaySymptoms();
+    graph();//displays a bar graph
+    
+    texts.displayTexts();//shows the text baseline and patient
+    texts.displaySymptoms();//displays the symptoms
  
-    strokeWeight(4);  
-    textSize(28);
-    drawInterF();
-
+    
+    drawInterF();//display line graph
+  
+    
     fill(0, random(255), random(255));
-    //load values
-    for (int i=0; i<positions.length; i++) {
-      ellipse(positions[i].x, positions[i].y, 15, 15);
-     
+    //loop that draw the circle/ellipse point of the line graph
+    for (int i=0; i<positions.length; i++)
+    {
+      ellipse(positions[i].x, positions[i].y, 10, 10);  
     }
     
-   
+    /*
+      if mouse is pressed on the heart area,
+      the blood activity will be displayed
+      
+    */
     if (mousePressed)
     {
         if (mouseX >110 && mouseX<240 && mouseY>270 && mouseY<310)
         {
-          loop();
-            background(255,0,0);
+          
+          background(255,0,0);
 
-  loadPixels();
-  for (int x = 0; x < width; x++) {
-    for (int y = 0; y < height; y++) {
-      int index = x + y * width;
-      float sum = 0;
-      for (BloodCell b : bloods) {
-        float d = dist(x, y, b.pos.x, b.pos.y);
-        sum += 10 * b.r / d;
-      }
-      pixels[index] = color(255,sum%140,sum%255);
-    }
-  }
+          loadPixels();
+          for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+              int index = x + y * width;
+              float sum = 0;
+              for (BloodCell b : bloods) {
+                float d = dist(x, y, b.pos.x, b.pos.y);
+                sum += 10 * b.r / d;
+              }
+              pixels[index] = color(255,sum%140,sum%255);
+            }
+          }
 
-  updatePixels();
-
-  for (BloodCell b : bloods) {
-    b.update();
-    //b.show();
-  }        
-     }
+          updatePixels();
+        
+          for (BloodCell b : bloods) {
+            b.update();
+            //b.show();
+          }        
+             }
    } 
    
-   //if statement interactive line graph
+   /*
+     if the bottom brain is clicked a line graph will be displayed
+     which shows data loaded from brain.csv file which is interactive when you
+     hover the mouse to a value there is a vertical line that slides and shows
+     the year and brain activity level etc.
+   */
    
    if (mousePressed)
    
@@ -190,15 +204,13 @@ void draw() {
         }//inner if
     }//if brain
 
-   
     
   }//end if control
   
 }
 
 
-
-
+//method to keep updating the background and the images in the loop
 void updateBack() {
   image(backg, 0, 0);
   image(bod, 50, 140);
@@ -210,7 +222,7 @@ void updateBack() {
   rect(15,15,1890,770);
 }
 
-//method for pie chart
+//method to draw the pie chart with random blue colors
 void pieChart(float diameter, int[] data) {
   float lastAngle = 0;
   for (int i = 0; i < data.length; i++) {
@@ -221,7 +233,11 @@ void pieChart(float diameter, int[] data) {
   }
 }
 
-//method for bar graph
+/*
+    method to draw the small bar graph with
+    random y values so it looks like its 
+    fluctuating and vice versa
+*/
 void graph() {
 
     stroke(255);
@@ -237,7 +253,7 @@ void graph() {
   }
 }
 
-//line graph interface
+//method to draw line graph interface
 void drawInterF()
 {
   //background(0);
@@ -254,13 +270,11 @@ void drawInterF()
       stroke(200);
       line(positions[i].x, positions[i].y, positions[i-1].x, positions[i-1].y);
     }
-  }
-
-  
+  } 
  
 }
 
-//to read data for line graph
+//method to read data for line graph
 void processData() {
   
   rawData = loadStrings(filename);
@@ -287,9 +301,8 @@ void processData() {
 }
 
 
-//brain line graph
 
-
+//method of brain line graph which loads the external data
 void loadData()
 {
   Table t = loadTable("brain.csv");
@@ -301,7 +314,7 @@ void loadData()
   }
 }
 
-
+//method to calculate the minimum and maximum value of the data
 void minmax()
 {
   min = max = data.get(0).brainwaves; 
@@ -318,7 +331,7 @@ void minmax()
   }
 }
 
-
+//method that draws the line graph with a slider guide
 void drawLineGraph()
 {
   
@@ -341,7 +354,7 @@ void drawLineGraph()
   text(" YEARLY BRAIN ACTIVITY ",700,height-margins-500);
 }
 
-
+//draw the slide bit of the line graph its a vertical line with a circle marking
 void drawBRAINBrainwaves()
 {
   if (mouseX >= margins && mouseX <= width - margins)
@@ -367,4 +380,4 @@ void drawBRAINBrainwaves()
 }
 
 
-   
+  
