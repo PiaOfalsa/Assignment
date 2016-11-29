@@ -29,13 +29,16 @@ Scanner scan;// for the circle/arc scanner
 Diagnosis dia;//display the string DIAGNOSIS
 Heart heart;//displays beating heart drawn using vertex
 Texts texts;//displays texts
+Final finals;
+
+
 
 //to store image files
 PImage backg;
 PImage bod;
 PImage brain;
 PImage brain2;
-PFont fontgraph;
+
 
 
 /*///////////////////////
@@ -79,6 +82,8 @@ void setup() {
   heart= new Heart();
   texts=new Texts();
   bay=new Baymax();
+  finals=new Final();
+  
   
   //sound var
   minim=new Minim(this);
@@ -106,6 +111,8 @@ void setup() {
   loadData();
   minmax();
   margins = width * 0.1f;
+  
+
 }
 
 void draw() { 
@@ -186,27 +193,52 @@ void draw() {
    
     {
         
-        if (mouseX >1200 && mouseX<1500 && mouseY>550 && mouseY<660)
-        {
-        
-        stroke(0);
-        textSize(40);
-        
-        background(172,247,249);
-       
-        pushMatrix();
-        translate(-210, -310);
-        
-        drawLineGraph();
-        drawBRAINBrainwaves();
-        popMatrix();
-                  
-        }//inner if
+            if (mouseX >1200 && mouseX<1500 && mouseY>550 && mouseY<660)
+            {
+            
+            stroke(0);
+            textSize(40);
+            
+            background(172,247,249);
+           
+            pushMatrix();
+            translate(-210, -310);
+            
+            drawLineGraph();
+            drawBRAINBrainwaves();
+            popMatrix();
+                      
+            }//inner if
+            
+           
     }//if brain
+     
+     if (mousePressed)
+     {
+           //parts of the brain
+            if (mouseX >1200 && mouseX<1500 && mouseY>200 && mouseY<400)
+            { 
+              
+              pushMatrix();
+              translate(-210, -310);
+            
+             
+              textSize(20);
+              text("PARIETAL LOBE",1480,200);
+              text("FRONTAL LOBE",1300,230);
+              text("TEMPORAL LOBE",1380,280);
+              text("OCCIPITAL LOBE",1550,260);
+              text("CEREBELLUM",1520,330);
+              text("BRAIN STEM",1500,360);
+              
+              popMatrix();
+            }
+     }
 
-    
+    println(frameCount);
   }//end if control
   
+
 }
 
 
