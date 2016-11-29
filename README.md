@@ -5,7 +5,7 @@ DT282-2
 GROUP D
 
 
-"Hello I am Baymax you personal Health Care companion".
+"Hello I am Baymax your personal Health Care companion".
 
 In this assignment, when my program is run the quote above is the first thing you will hear.
 Essentially my project is a futuristic user interface inspired my the movie Big Hero 6.
